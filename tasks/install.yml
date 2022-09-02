@@ -1,0 +1,30 @@
+---
+# echo '> Cleaning the machine-id ...'
+# truncate -s 0 /etc/machine-id
+# rm /var/lib/dbus/machine-id
+# ln -s /etc/machine-id /var/lib/dbus/machine-id
+
+- name: Import truncate_logs.yml
+  ansible.builtin.import_tasks: truncate_logs.yml
+
+- name: Import rebuild_hostkeys.yml
+  ansible.builtin.import_tasks: rebuild_hostkeys.yml
+
+- name: Import update_grub.yml
+  ansible.builtin.import_tasks: update_grub.yml
+
+- name: Import clean_cloudinit.yml
+  ansible.builtin.import_tasks: clean_cloudinit.yml
+
+- name: Import disable_services.yml
+  ansible.builtin.import_tasks: disable_services.yml
+
+#- name: "Remove net-plan file"
+#  ansible.builtin.file:
+#    path: /etc/netplan/00-installer-config.yaml
+#    state: absent
+#
+#- name: "Remove net-plan file"
+#  ansible.builtin.file:
+#    path: /etc/netplan/50-cloud-init.yaml
+#    state: absent

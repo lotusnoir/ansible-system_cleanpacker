@@ -1,0 +1,41 @@
+---
+# echo '> Cleaning the machine-id ...'
+# truncate -s 0 /etc/machine-id
+# rm /var/lib/dbus/machine-id
+# ln -s /etc/machine-id /var/lib/dbus/machine-id
+
+- name: "Ensure /var/log/audit/audit.log exists"
+  ansible.builtin.stat:
+    path: /var/log/audit/audit.log
+  register: log1
+
+- name: "Truncate /var/log/audit/audit.log"
+  ansible.builtin.copy:
+    dest: "/var/log/audit/audit.log"
+    content: ""
+    mode: '0644'
+  when: log1.stat.exists
+
+- name: "Ensure /var/log/wtmp exists"
+  ansible.builtin.stat:
+    path: /var/log/wtmp
+  register: log2
+
+- name: "Truncate /var/log/wtmp"
+  ansible.builtin.copy:
+    dest: "/var/log/wtmp"
+    content: ""
+    mode: '0644'
+  when: log2.stat.exists
+
+- name: "Ensure /var/log/lastlog exists"
+  ansible.builtin.stat:
+    path: /var/log/lastlog
+  register: log3
+
+- name: "Truncate /var/log/lastlog"
+  ansible.builtin.copy:
+    dest: "/var/log/lastlog"
+    content: ""
+    mode: '0644'
+  when: log3.stat.exists

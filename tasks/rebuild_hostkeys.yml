@@ -1,0 +1,15 @@
+---
+- name: "1/2 Remove template hosts keys"
+  ansible.builtin.find:
+    paths: /etc/ssh/
+    patterns: "ssh_host_*"
+  register: ssh_host_keys
+
+- name: "2/2 Remove template hosts keys"
+  ansible.builtin.file:
+    path: "{{ item['path'] }}"
+    state: absent
+  with_items: "{{ ssh_host_keys['files'] }}"
+  notify:
+    - reconfig ssh
+    - restart sshd

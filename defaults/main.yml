@@ -1,0 +1,4 @@
+---
+cleanpacker_testmode: true
+cleanpacker_remove_cloudinit: false
+cleanpacker_update_grub: false

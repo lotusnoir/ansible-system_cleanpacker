@@ -1,0 +1,40 @@
+---
+- name: "Special tasks for Oracle Linux"
+  when: ansible_distribution == 'OracleLinux' and cleanpacker_update_grub
+  block:
+    - name: "Ensure grub exist"
+      ansible.builtin.stat:
+        path: "{{ cleanpacker_grub_path }}"
+      register: grub_ora
+
+    - name: "ORA | Customize boot commands"
+      ansible.builtin.lineinfile:
+        path: "{{ cleanpacker_grub_path }}"
+        regexp: '^GRUB_CMDLINE_LINUX="'
+        line: 'GRUB_CMDLINE_LINUX="crashkernel=auto rhgb quiet numa=off transparent_hugepage=never"'
+      notify: restart_grub_oracle
+      when: grub_ora
+
+    - name: "ORA | Rebuild grub"
+      ansible.builtin.command: grub2-mkconfig -o /boot/grub2/grub.cfg
+      changed_when: false
+
+- name: "Special tasks for Ubuntu"
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version == '22' and cleanpacker_update_grub
+  block:
+    - name: "UBUNTU | ensure grub exist"
+      ansible.builtin.stat:
+        path: "{{ cleanpacker_grub_path }}"
+      register: grub_ubu
+
+    - name: "UBUNTU22 | Remove static ip in grub"
+      ansible.builtin.lineinfile:
+        path: "{{ cleanpacker_grub_path }}"
+        regexp: '^GRUB_CMDLINE_LINUX_DEFAULT="ip'
+        line: 'GRUB_CMDLINE_LINUX_DEFAULT="ipv6.disable=1 autoinstall ds=nocloud"'
+      when: grub_ubu
+
+    - name: "UBUNTU22 | Rebuild grub"
+      ansible.builtin.command: update-grub
+      changed_when: false
+      when: grub_ubu
