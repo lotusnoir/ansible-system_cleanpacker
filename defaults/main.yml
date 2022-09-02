@@ -1,4 +1,6 @@
 ---
-cleanpacker_testmode: true
-cleanpacker_remove_cloudinit: false
-cleanpacker_update_grub: false
+cleanpacker_truncate_logs: true
+cleanpacker_rebuild_hostkeys: true
+cleanpacker_update_grub: true
+cleanpacker_clean_cloudinit: true
+cleanpacker_disable_services: true

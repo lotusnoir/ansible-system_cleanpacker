@@ -1,24 +1,21 @@
 ---
-- name: "Clean cloudinit configuration"
-  when: cleanpacker_remove_cloudinit
-  block:
-    - name: "CLOUDINIT | Add content on cloud-init file"
-      ansible.builtin.copy:
-        dest: "/etc/cloud/cloud.cfg.d/90_dpkg.cfg"
-        content: |
-          datasource_list: [ VMware, NoCloud, ConfigDrive ]
-        mode: '0644'
+- name: "CLOUDINIT | Add content on cloud-init file"
+  ansible.builtin.copy:
+    dest: "/etc/cloud/cloud.cfg.d/90_dpkg.cfg"
+    content: |
+      datasource_list: [ VMware, NoCloud, ConfigDrive ]
+    mode: '0644'
 
-    - name: "CLOUDINIT | Remove cloud-init file"
-      ansible.builtin.file:
-        path: /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg
-        state: absent
+- name: "CLOUDINIT | Remove cloud-init file"
+  ansible.builtin.file:
+    path: /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg
+    state: absent
 
-    - name: "CLOUDINIT | Remove cloud-init file"
-      ansible.builtin.file:
-        path: /etc/cloud/cloud.cfg.d/99-installer.cfg
-        state: absent
+- name: "CLOUDINIT | Remove cloud-init file"
+  ansible.builtin.file:
+    path: /etc/cloud/cloud.cfg.d/99-installer.cfg
+    state: absent
 
-    - name: "CLOUDINIT | Cloud-init clean"
-      ansible.builtin.command: /usr/bin/cloud-init clean
-      changed_when: false
+- name: "CLOUDINIT | Cloud-init clean"
+  ansible.builtin.command: /usr/bin/cloud-init clean
+  changed_when: false

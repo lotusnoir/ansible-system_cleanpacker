@@ -1,11 +1,11 @@
 ---
-- name: "1/2 Remove template hosts keys"
+- name: "Find all host keys"
   ansible.builtin.find:
     paths: /etc/ssh/
     patterns: "ssh_host_*"
   register: ssh_host_keys
 
-- name: "2/2 Remove template hosts keys"
+- name: "Remove hosts keys"
   ansible.builtin.file:
     path: "{{ item['path'] }}"
     state: absent
