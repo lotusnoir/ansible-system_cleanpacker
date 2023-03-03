@@ -1,6 +1,6 @@
 ---
 cleanpacker_truncate_logs: true
 cleanpacker_rebuild_hostkeys: true
-cleanpacker_update_grub: true
+cleanpacker_update_grub: false
 cleanpacker_clean_cloudinit: "{% if ansible_distribution == 'Ubuntu' %}true{% else %}false{% endif %}"
 cleanpacker_disable_services: true
