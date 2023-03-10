@@ -1,21 +1,45 @@
 ---
-- name: "Check if logs were empty"
+- name: "Check if logrotate exist"
   ansible.builtin.stat:
-    path: /var/log/audit/audit.log
-  register: log1
+    path: /usr/sbin/logrotate
+  register: rotate_bin
 
-- name: "Remove all files and dir in /var/logs"
+- name: "Rotate files"
+  command: /usr/sbin/logrotate -f /etc/logrotate.conf
+  when: rotate_bin.stat.exists
+  failed_when: false
+  changed_when: false
+
+- name: "Find files to be removed"
+  find:
+    paths: /var/log
+    file_type: file
+    patterns: "*.1, *.gz"
+  register: find_results
+
+- name: "Remove files"
   file:
-    state: "{{ item }}"
-    path: "/var/log/"
-    owner: root
-    group: root
-    mode: '0755'
-  with_items:
-    - absent
-    - directory
-  when: log1.stat.exists
+    path: "{{ item['path'] }}"
+    state: absent
+  with_items: "{{ find_results['files'] }}"
 
+#- name: "Check if logs were empty"
+#  ansible.builtin.stat:
+#    path: /var/log/audit/audit.log
+#  register: log1
+#
+#- name: "Remove all files and dir in /var/logs"
+#  file:
+#    state: "{{ item }}"
+#    path: "/var/log/"
+#    owner: root
+#    group: root
+#    mode: '0755'
+#  with_items:
+#    - absent
+#    - directory
+#  when: log1.stat.exists
+#
 #- name: "Ensure /var/log/audit/audit.log exists"
 #  ansible.builtin.stat:
 #    path: /var/log/audit/audit.log
