@@ -9,6 +9,7 @@
   ansible.builtin.file:
     path: "{{ item['path'] }}"
     state: absent
+  no_log: true
   with_items: "{{ ssh_host_keys['files'] }}"
   notify:
     - reconfig ssh

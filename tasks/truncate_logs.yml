@@ -21,6 +21,7 @@
   file:
     path: "{{ item['path'] }}"
     state: absent
+  no_log: true
   with_items: "{{ find_results['files'] }}"
 
 #- name: "Check if logs were empty"

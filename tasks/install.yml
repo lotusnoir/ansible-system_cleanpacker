@@ -7,10 +7,6 @@
   ansible.builtin.import_tasks: rebuild_hostkeys.yml
   when: cleanpacker_rebuild_hostkeys|bool
 
-#- name: Import update_grub.yml
-#  ansible.builtin.import_tasks: update_grub.yml
-#  when: cleanpacker_update_grub|bool
-
 - name: Import clean_cloudinit.yml
   ansible.builtin.import_tasks: clean_cloudinit.yml
   when: cleanpacker_clean_cloudinit|bool

@@ -1,2 +1,0 @@
----
-cleanpacker_grub_cmd: 'GRUB_CMDLINE_LINUX_DEFAULT="ipv6.disable=1 autoinstall ds=nocloud"'
