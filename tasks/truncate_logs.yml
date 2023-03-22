@@ -5,20 +5,20 @@
   register: rotate_bin
 
 - name: "Rotate files"
-  command: /usr/sbin/logrotate -f /etc/logrotate.conf
+  ansible.builtin.command: /usr/sbin/logrotate -f /etc/logrotate.conf
   when: rotate_bin.stat.exists
   failed_when: false
   changed_when: false
 
 - name: "Find files to be removed"
-  find:
+  ansible.builtin.find:
     paths: /var/log
     file_type: file
     patterns: "*.1, *.gz"
   register: find_results
 
 - name: "Remove files"
-  file:
+  ansible.builtin.file:
     path: "{{ item['path'] }}"
     state: absent
   no_log: true

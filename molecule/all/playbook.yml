@@ -4,8 +4,10 @@
   become: true
   any_errors_fatal: true
 
-  roles:
-    - role: ansible-system_cleanpacker
+  tasks:
+    - name: Include role
+      ansible.builtin.include_role:
+        name: ansible-system_cleanpacker
 
   vars:
     cleanpacker_update_grub: false
