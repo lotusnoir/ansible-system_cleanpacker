@@ -4,11 +4,11 @@
   become: true
   any_errors_fatal: true
 
+  vars:
+    cleanpacker_update_grub: false
+    cleanpacker_clean_cloudinit: false
+
   tasks:
     - name: Include role
       ansible.builtin.include_role:
         name: ansible-system_cleanpacker
-
-  vars:
-    cleanpacker_update_grub: false
-    cleanpacker_clean_cloudinit: false
