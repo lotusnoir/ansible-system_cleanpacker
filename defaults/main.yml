@@ -1,5 +1,8 @@
 ---
-cleanpacker_truncate_logs: true
-cleanpacker_rebuild_hostkeys: true
-cleanpacker_clean_cloudinit: "{% if ansible_distribution == 'Ubuntu' %}true{% else %}false{% endif %}"
-cleanpacker_disable_services: true
+cleanpacker_truncate_logs: false
+cleanpacker_rebuild_hostkeys: false
+cleanpacker_clean_cloudinit: false
+#cleanpacker_clean_cloudinit: "{% if ansible_distribution == 'Ubuntu' %}true{% else %}false{% endif %}"
+cleanpacker_disable_services: false
+cleanpacker_delete_unusedlocales: false
+cleanpacker_locales_keep: "en,fr"

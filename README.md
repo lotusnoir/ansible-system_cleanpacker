@@ -21,7 +21,7 @@
 
 ## Description
 
-Cleanning tasks before finalise packer image
+Cleanning tasks before finalising packer image, dont do anything by default, manage the things that a dedicated role doesnt or not worth to do
 ## Requirements
 
 none

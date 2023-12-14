@@ -15,6 +15,10 @@
   ansible.builtin.import_tasks: disable_services.yml
   when: cleanpacker_disable_services|bool
 
+- name: Import delete_unusedlocales.yml
+  ansible.builtin.import_tasks: delete_unusedlocales.yml
+  when: cleanpacker_delete_unusedlocales|bool
+
 # echo '> Cleaning the machine-id ...'
 # truncate -s 0 /etc/machine-id
 # rm /var/lib/dbus/machine-id
