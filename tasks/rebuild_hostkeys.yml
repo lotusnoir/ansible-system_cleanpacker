@@ -12,5 +12,5 @@
   no_log: true
   with_items: "{{ ssh_host_keys['files'] }}"
   notify:
-    - reconfig ssh
-    - restart sshd
+    - "Reconfig ssh"
+    - "Restart sshd"

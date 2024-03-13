@@ -1,9 +1,10 @@
 ---
-- name: "reconfig ssh"
+- name: "Reconfig ssh"
   ansible.builtin.command: "dpkg-reconfigure openssh-server -u"
+  changed_when: false
   when: ansible_os_family == 'Debian'
 
-- name: "restart sshd"
+- name: "Restart sshd"
   ansible.builtin.service:
     name: sshd
     state: restarted
