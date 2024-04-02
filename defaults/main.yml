@@ -6,3 +6,4 @@ cleanpacker_clean_cloudinit: false
 cleanpacker_disable_services: false
 cleanpacker_delete_unusedlocales: false
 cleanpacker_locales_keep: "en,fr"
+cleanpacker_hypervisor: "vmware"
