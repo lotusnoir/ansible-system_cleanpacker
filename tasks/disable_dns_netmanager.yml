@@ -14,3 +14,17 @@
         content: |
           [main]
           dns=none
+
+- name: "Find network config files"
+  ansible.builtin.find:
+    paths: /etc/NetworkManager/system-connections/
+    file_type: file
+    patterns: "*"
+  register: find_results
+
+- name: "Remove files"
+  ansible.builtin.file:
+    path: "{{ item['path'] }}"
+    state: absent
+  no_log: true
+  with_items: "{{ find_results['files'] }}"
