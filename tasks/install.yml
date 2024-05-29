@@ -23,6 +23,10 @@
   ansible.builtin.import_tasks: disable_dns_netmanager.yml
   when: cleanpacker_disable_dns_netmanager | bool
 
+- name: Import clean_consul_node_id.yml
+  ansible.builtin.import_tasks: clean_consul_node_id.yml
+  when: cleanpacker_clean_consul_node_id | bool
+
 # echo '> Cleaning the machine-id ...'
 # truncate -s 0 /etc/machine-id
 # rm /var/lib/dbus/machine-id
