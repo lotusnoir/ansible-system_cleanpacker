@@ -7,7 +7,6 @@
   vars:
     cleanpacker_truncate_logs: true
     cleanpacker_rebuild_hostkeys: true
-    cleanpacker_disable_services: true
     cleanpacker_delete_unusedlocales: true
     cleanpacker_locales_keep: "en,fr"
 
