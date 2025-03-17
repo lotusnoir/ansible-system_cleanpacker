@@ -27,17 +27,6 @@
   ansible.builtin.import_tasks: clean_consul_node_id.yml
   when: cleanpacker_clean_consul_node_id | bool
 
-# echo '> Cleaning the machine-id ...'
-# truncate -s 0 /etc/machine-id
-# rm /var/lib/dbus/machine-id
-# ln -s /etc/machine-id /var/lib/dbus/machine-id
-
-#- name: "Remove net-plan file"
-#  ansible.builtin.file:
-#    path: /etc/netplan/00-installer-config.yaml
-#    state: absent
-#
-#- name: "Remove net-plan file"
-#  ansible.builtin.file:
-#    path: /etc/netplan/50-cloud-init.yaml
-#    state: absent
+- name: Import clean_machine_id.yml
+  ansible.builtin.import_tasks: clean_machine_id.yml
+  when: cleanpacker_clean_machine_id | bool

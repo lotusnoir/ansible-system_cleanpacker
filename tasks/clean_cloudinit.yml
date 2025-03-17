@@ -1,27 +1,27 @@
 ---
-#- name: "CLOUDINIT | Ensure disable_vmware_customization set to false"
-#  ansible.builtin.lineinfile:
-#    path: /etc/cloud/cloud.cfg
-#    insertafter: EOF
-#    line: 'disable_vmware_customization: false'
-#  when: cleanpacker_hypervisor == "vmware"
+# - name: "CLOUDINIT | Ensure disable_vmware_customization set to false"
+#   ansible.builtin.lineinfile:
+#     path: /etc/cloud/cloud.cfg
+#     insertafter: EOF
+#     line: 'disable_vmware_customization: false'
+#   when: cleanpacker_hypervisor == "vmware"
 #
-#- name: "CLOUDINIT | Add content on cloud-init config"
-#  ansible.builtin.copy:
-#    dest: "/etc/cloud/cloud.cfg.d/99-vmware-guest-customization.cfg"
-#    content: |
-#      datasource_list:
-#        VMware:
-#          vmware_cust_file_max_wait: 10
-#    mode: '0644'
-#  when: cleanpacker_hypervisor == "vmware"
+# - name: "CLOUDINIT | Add content on cloud-init config"
+#   ansible.builtin.copy:
+#     dest: "/etc/cloud/cloud.cfg.d/99-vmware-guest-customization.cfg"
+#     content: |
+#       datasource_list:
+#         VMware:
+#           vmware_cust_file_max_wait: 10
+#     mode: '0644'
+#   when: cleanpacker_hypervisor == "vmware"
 
 - name: "CLOUDINIT | Add content on cloud-init file"
   ansible.builtin.copy:
     dest: "/etc/cloud/cloud.cfg.d/90_dpkg.cfg"
     content: |
       datasource_list: [ VMware, NoCloud, ConfigDrive ]
-    mode: '0644'
+    mode: "0644"
 
 - name: "CLOUDINIT | Remove cloud-init file"
   ansible.builtin.file:

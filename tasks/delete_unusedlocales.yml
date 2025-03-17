@@ -1,5 +1,5 @@
 ---
-#find /usr/share/locale -mindepth 1 -maxdepth 1 ! -name 'fr' !  -name 'en_US*' ! -name 'en' |xargs rm -r
+# find /usr/share/locale -mindepth 1 -maxdepth 1 ! -name 'fr' !  -name 'en_US*' ! -name 'en' |xargs rm -r
 - name: Capture locales to delete
   ansible.builtin.find:
     paths: /usr/share/locale
