@@ -4,6 +4,7 @@
     paths: /etc/ssh/
     patterns: "ssh_host_*"
   register: ssh_host_keys
+  when: ansible_distribution != 'Ubuntu'
 
 - name: "Remove hosts keys"
   ansible.builtin.file:
@@ -11,6 +12,18 @@
     state: absent
   no_log: true
   with_items: "{{ ssh_host_keys['files'] }}"
+  when: ansible_distribution != 'Ubuntu'
   notify:
     - "Reconfig ssh"
     - "Restart sshd"
+
+- name: "UBUNTU | Regenerate SSH host keys "
+  ansible.builtin.shell: "rm -f /etc/ssh/ssh_host_*_key /etc/ssh/ssh_host_*_key.pub && ssh-keygen -A"
+  changed_when: false
+  when: ansible_distribution == 'Ubuntu'
+  notify:
+    - "Reconfig ssh"
+    - "Restart sshd"
+
+- name: "Flush handlers"
+  ansible.builtin.meta: flush_handlers

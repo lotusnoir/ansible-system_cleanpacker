@@ -10,6 +10,14 @@
     cleanpacker_delete_unusedlocales: true
     cleanpacker_locales_keep: "en,fr"
 
+  pre_tasks:
+    - name: Ensure openssh-client is installed
+      ansible.builtin.apt:
+        name: openssh-client
+        state: present
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
   tasks:
     - name: Include role
       ansible.builtin.include_role:
