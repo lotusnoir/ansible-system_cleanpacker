@@ -8,6 +8,7 @@
     cleanpacker_truncate_logs: true
     cleanpacker_rebuild_hostkeys: true
     cleanpacker_delete_unusedlocales: true
+    cleanpacker_locales_keep: ["en", "fr"]
 
   pre_tasks:
     - name: Ensure openssh-client is installed
