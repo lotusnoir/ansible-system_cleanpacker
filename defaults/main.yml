@@ -7,6 +7,6 @@ cleanpacker_disable_services: false
 cleanpacker_delete_unusedlocales: false
 cleanpacker_disable_dns_netmanager: false
 cleanpacker_clean_consul_node_id: false
-cleanpacker_locales_keep: "en,fr"
+cleanpacker_locales_keep: ["en", "fr", "sk"]
 cleanpacker_hypervisor: "vmware"
 cleanpacker_clean_machine_id: "false"

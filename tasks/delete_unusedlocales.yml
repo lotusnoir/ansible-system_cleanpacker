@@ -4,11 +4,15 @@
   ansible.builtin.find:
     paths: /usr/share/locale
     file_type: directory
-    excludes: "cleanpacker_locales_keep"
+    recurse: false
+    excludes: "{{ cleanpacker_locales_keep }}"
   register: found_files
 
-- name: Delete locales
-  ansible.builtin.file:
-    path: "{{ item.path }}"
-    state: absent
-  with_items: "{{ found_files['files'] }}"
+# - debug:
+#     var: found_files.files  | map(attribute='path') | list
+
+- name: Delete locales in bulk
+  ansible.builtin.shell: >
+    rm -rf {{ found_files.files | map(attribute='path') | join(' ') }}
+  changed_when: false
+  when: found_files.matched > 0

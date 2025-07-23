@@ -22,6 +22,7 @@
 ## Description
 
 Cleanning tasks before finalising packer image, dont do anything by default, manage the things that a dedicated role doesnt or not worth to do
+
 ## Requirements
 
 none
@@ -39,7 +40,6 @@ See [variables](/defaults/main.yml) for more details.
           gather_facts: true
           roles:
             - role: ansible-system_cleanpacker
-
 
 ## License
 
